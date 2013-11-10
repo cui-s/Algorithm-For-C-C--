@@ -70,7 +70,23 @@ void btree::insert(int key,node * leaf) {
 }
 
 
+node btree::search(int key,node * leaf) {
+	if(leaf!=NULL){
+		if(key==leaf->key_value)
+			return leaf;
+		if(key>leaf->key_value)
+			return search(key,leaf->left);
+		if(key<leaf->key_value)
+			return search(key,leaf->right);
+	}
+	else return NULL;
+}
 
+
+
+		
+
+}
 	
 		
 
