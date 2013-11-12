@@ -14,7 +14,7 @@ class btree {
 		~btree();
 		void insert(int key);
 		void insert(int key,node * leaf);
-		search *node(int key);
+		node *search(int key);
 		void detroy_node(int key);
 		
 	private:
@@ -25,10 +25,6 @@ btree::btree() {
 	root = NULL;
 }
 
-void btree::insert(int key,node *leaf) {
-
-
-}
 
 btree::~btree() {
 	}
@@ -70,7 +66,7 @@ void btree::insert(int key,node * leaf) {
 }
 
 
-node btree::search(int key,node * leaf) {
+node  * btree::search(int key,node * leaf) {
 	if(leaf!=NULL){
 		if(key==leaf->key_value)
 			return leaf;
@@ -86,7 +82,6 @@ node btree::search(int key,node * leaf) {
 
 		
 
-}
 	
 		
 
