@@ -1,11 +1,11 @@
 #include<iostream>
 using namespace std;
 
-strcut node {
+struct node {
 	int key_value;
 	node * left;
 	node * right;
-}
+};
 
 
 class btree { 
@@ -13,10 +13,12 @@ class btree {
 		btree();
 		~btree();
 		void insert(int key);
-		void insert(int key,node * leaf);
-		node *search(int key);
+		void insert_leaf(int key,node * leaf);
+		node *search(int key,node *leaf);
 		void detroy_node(int key);
-		
+		node * return_root();
+		int return_tree_height();
+		void print_all_node(node * leaf);		
 	private:
 		node * root;
 };
@@ -32,7 +34,7 @@ btree::~btree() {
 
 void btree::insert(int key) {
 	if(root!=NULL)
-		insert(key,root);
+		insert_leaf(key,root);
 	else {
 		root = new node;
 		root->key_value = key;
@@ -40,25 +42,25 @@ void btree::insert(int key) {
 		root->right = NULL;
 	}
 }
-
-void btree::insert(int key,node * leaf) {
+//search key from node called leaf
+void btree::insert_leaf(int key,node * leaf) {
 	if (key < leaf->key_value) {
 		if (leaf->left != NULL) 
-			insert(key,leaf->left);
+			insert_leaf(key,leaf->left);
 		else {
 			leaf->left = new node;
 			leaf->left->key_value = key;
 			leaf->left->left = NULL;
-			left->left->right = NULL;	
+			leaf->left->right = NULL;	
 		}
 	} else if (key >= leaf->key_value) {
-		if(leaf->rigth!=NULL)
-			insert(key,leaf->right);
+		if(leaf->right!=NULL)
+			insert_leaf(key,leaf->right);
 		else {
 			leaf->right = new node;
 			leaf->right->key_value = key;
 			leaf->right->left = NULL;
-			leaf->rigth->right = NULL;
+			leaf->right->right = NULL;
 		}
 
 	}
@@ -78,11 +80,26 @@ node  * btree::search(int key,node * leaf) {
 	else return NULL;
 }
 
+void btree::print_all_node(node * root) {
+	if(!root)
+		return;
+			
+	cout<<root->key_value<<" ";
+	
+	print_all_node(root->left);
+	print_all_node(root->right);
+}
 
-
-		
+node * btree::return_root() {
+	return root;
+}
 
 	
+int btree::return_tree_height(node * leaf) {
+	if(!leaf)
+		return 0;
+	int length;
+	length = 1;
 		
 
 }
